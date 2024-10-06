@@ -19,7 +19,7 @@ int main() {
     /**
         if (execl("/bin/ls", "/bin/ls", (char *)NULL) == -1) {
             fprintf(stderr, "execl failed\n");
-            exit(1); hi
+            exit(1);
         }
     **/
 
