@@ -18,7 +18,7 @@ int main() {
     } else {
         // parent
         // wait(NULL); // damit Child zuerst in .txt schreibt
-        sleep(1); //pausiert das Programm für 1 Sekunde, CPU wird nicht benutzt, dadurch kann etwas anderes laufen
+        sleep(1); //pausiert das Programm für 1 Sekunde, CPU wird nicht benutzt, dadurch kann etwas anderes laufen, -> Pipe benutzen!!!
         printf("goodbye\n");
     }
     return 0;

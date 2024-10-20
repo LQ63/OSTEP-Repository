@@ -9,8 +9,8 @@
 
 int main() {
 
-    int fds[2]; //Pipeeingang, Pipeausgang
-    char buffer[50]; // Speicher in der Pipe
+    int fds[2]; //PipeInput, PipeOutput
+    char buffer[50]; // Speicher für String aus Child 1
 
     if (pipe(fds) == -1) { // pipe(fds) erstellt die pipe
         perror("pipe");
@@ -27,7 +27,7 @@ int main() {
         //child
         close(fds[0]); // Read Möglichkeit geschlossen
         dup2(fds[1], STDOUT_FILENO); //Verbinden von Output der Pipe zur Standardausgabe
-        close(fds[1]);
+        close(fds[1]); //Um Fehler zu vermeiden
         printf("Servus Child. Wie goats dir?"); // wird redirected in pipe
     } else {
         // parent
@@ -37,7 +37,7 @@ int main() {
         fprintf(stderr, "fork failed\n");
         exit(1);
         } else if (g == 0) {
-            //gchild
+            //2. child
             close(fds[1]);
             read(fds[0], buffer, sizeof(buffer)); // Daten aus dem Pipe in den Buffer lesen
             if (strcmp(buffer, "Servus Child. Wie goats dir?") == 0) {

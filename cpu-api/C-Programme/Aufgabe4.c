@@ -1,3 +1,5 @@
+#define _GNU_SOURCE // for execvpe
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -17,7 +19,7 @@ int main() {
         //child
 
     /**
-        if (execl("/bin/ls", "/bin/ls", (char *)NULL) == -1) {
+        if (execl("/bin/ls", "ls", (char *)NULL) == -1) {
             fprintf(stderr, "execl failed\n");
             exit(1);
         }
@@ -54,9 +56,9 @@ int main() {
         }
     **/
 
-        char *envp[] = { "PATH=/usr/bin", NULL };
+        char *envp[] = { "PATH=/usr/bin", NULL }; //Environment:  Darf nur im Homedirectory austoben z.B., ls darf nur in einem spezifischen Bereich laufen
         char *args[] = { "ls", (char *)NULL };
-        if (execvpe(args[0], args, envp) == -1) {
+        if (execvpe("ls", args, envp) == -1) {
             fprintf(stderr, "execvpe failed\n");
             exit(1);
         }

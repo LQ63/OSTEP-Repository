@@ -8,7 +8,7 @@
 
 
 int main() {
-    FILE *file = fopen("testaufruf.txt", "w");
+    int filedescriptor = open("testaufruf.txt", O_WRONLY | O_CREAT | O_TRUNC); //A file descriptor is an integer that uniquely identifies an open file within a process
     int f = fork();
     if (f < 0) {
         // fork failed
@@ -16,11 +16,11 @@ int main() {
         exit(1);
     } else if (f == 0) {
         //child
-        fprintf(file, "Child: Irgendwas");
+        dprintf(filedescriptor, "Child: Irgendwas"); // fflush benutzen, damit direkt beschrieben
     } else {
         // parent
-        // wait(NULL); // damit Child zuerst in .txt schreibt
-        fprintf(file, "Parent: Irgendwas");
+        //wait(NULL); // damit Child zuerst in .txt schreibt
+        dprintf(filedescriptor, "Parent: Irgendwas"); // fflush benutzen, damit direkt beschrieben
     }
     return 0;
 }
