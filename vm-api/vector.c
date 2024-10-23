@@ -15,6 +15,17 @@ void vector_initialisieren(Vector *vec)
     vec->data = (int *) malloc(vec->capacity * sizeof(int));
 }
 
+int vectorvalue_zurückgeben(Vector *vec, int offset)
+{
+    if (offset > (vec->size -1))
+    {
+        printf("dummer offset");
+        return -1;
+    }
+    return vec->data[offset - 1]; //mit oder ohne halt
+}
+
+
 void add_element(Vector *vec, int element)
 {
     vec->size++;
@@ -51,7 +62,11 @@ int main(int argc, char* argv[])
     add_element(&v, 24);
     add_element(&v, 34);
     add_element(&v, 44);
+    add_element(&v, 100);
+    add_element(&v, 101);
     print_vector(&v);
+    int a = vectorvalue_zurückgeben(&v, 2);
+    printf("%d\n", a);
     vector_freigeben(&v);
 }
 
